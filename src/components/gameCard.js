@@ -1,9 +1,10 @@
 import React from "react";
+import Price from './price';
 
 const GameCard = ({game}) => (
   <div className="ui card">
     <div className = "image">
-        <span className="ui green ribbon label">${game.price}</span>
+        <Price gamePrice={game}/>
         <img src= {game.thumbnail}  alt="Game Cover"></img>
     </div>
     <div className = "content">
