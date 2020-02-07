@@ -29,10 +29,31 @@ const games = undefined;
 //   }
 // ];
 
-const App = () => (
-  <div className="ui container">
+// const App = () => (
+  
+// );
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      games:[]
+    }
+  }
+  
+  
+  render() {
+
+    return(
+      <div className="ui container">
     <GamesList games={games} />
   </div>
-);
+    
+  )
+  }
+
+
+}
 
 export default App;
