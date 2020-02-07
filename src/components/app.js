@@ -35,13 +35,9 @@ const games = undefined;
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      games:[]
-    }
+  state = {
+    games:[]
   }
-  
   
   render() {
 
