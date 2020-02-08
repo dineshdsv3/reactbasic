@@ -1,10 +1,15 @@
 import React from "react";
 import GamesList from "./gamesList";
+import PropTypes from "prop-types";
+import _orderBy from "lodash/orderBy"
+
+
 
 // const games = undefined;
 const games = [
   {
     _id: 1,
+    featured: false,
     price: 32.99,
     thumbnail: "https://wallpapercave.com/wp/wp1826564.jpg",
     header: "Age of Empire",
@@ -13,6 +18,7 @@ const games = [
   },
   {
     _id: 2,
+    featured: false,
     price: 10.99,
     thumbnail: "https://wallpapercave.com/wp/wp2208672.jpg",
     header: "Pubg",
@@ -21,6 +27,7 @@ const games = [
   },
   {
     _id: 3,
+    featured: true,
     price: 11.99,
     thumbnail: "https://wallpapercave.com/wp/k6fdpmv.jpg",
     header: "NFS Most Wanted",
@@ -37,7 +44,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState( {games: games})
+    this.setState( { games: _orderBy(games,["featured","header"],["desc","asc"]) })
   }
   
   render() {
@@ -53,4 +60,7 @@ class App extends React.Component {
 
 }
 
+games.propTypes = {
+  games: PropTypes.object.isRequired
+}
 export default App;
