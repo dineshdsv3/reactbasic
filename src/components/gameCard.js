@@ -8,7 +8,10 @@ const GameCard = ({game, toggleFeatured}) => (
   <div className="ui card">
     <div className = "image">
         <Price gamePrice={game}/>
-        <Featured featured={game.featured} toggleFeatured={toggleFeatured}/>
+        <Featured 
+        featured={game.featured} 
+        toggleFeatured={toggleFeatured}
+        gameId = {game._id}/>
         <img src= {game.thumbnail}  alt="Game Cover"></img>
     </div>
     <div className = "content">
