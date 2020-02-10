@@ -1,9 +1,7 @@
 import React from "react";
 import GamesList from "./gamesList";
 import PropTypes from "prop-types";
-import _orderBy from "lodash/orderBy"
-
-
+import _orderBy from "lodash/orderBy";
 
 // const games = undefined;
 const games = [
@@ -36,37 +34,58 @@ const games = [
   }
 ];
 
-
-
 class App extends React.Component {
+  // constructor(props) {
+  //   super(props)
+
+  //   this.state = {
+  //     games:[]
+  //   }
+        // First way of binding an function
+  //   this.toggleFeatured = this.toggleFeatured.bind(this);
+  // }
+  
+  
   state = {
-    games:[]
-  }
+    games: []
+  };
 
   componentDidMount() {
-    this.setState( { games: _orderBy(games,["featured","header"],["desc","asc"]) })
+    this.setState({
+      games: this.orderBy(games)
+    });
   }
-  
-  toggleFeatured(gameId) {
-    alert(gameId)
+
+  orderBy(games) {
+   return _orderBy(games, ["featured", "header"], ["desc", "asc"])
   }
+
+  // Here in the toggleFeatured we have binded using the JS class property as a arrow function
+  // this binding is doing in a advanced javascript way
+  // second way of binding a function
+  toggleFeatured = gameId => {
+    const newGames = this.state.games.map(game => {
+      if (game._id === gameId) return { ...game, featured: !game.featured };
+      return game;
+    });
+    this.setState({
+      games: this.orderBy(newGames)
+    });
+  };
 
   render() {
-
-    return(
+    return (
       <div className="ui container">
-    <GamesList 
-    games={this.state.games} 
-    toggleFeatured = {this.toggleFeatured}/>
-  </div>
-    
-  )
+        <GamesList
+          games={this.state.games}
+          toggleFeatured={this.toggleFeatured}
+        />
+      </div>
+    );
   }
-
-
 }
 
 games.propTypes = {
   games: PropTypes.object.isRequired
-}
+};
 export default App;
