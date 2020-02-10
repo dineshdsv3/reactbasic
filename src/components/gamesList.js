@@ -8,7 +8,7 @@ const msg = {
     info :["info" ,"success", "error"]
 }
 
-const GamesList = ({ games, toggleFeatured }) => (
+const GamesList = ({ games, toggleFeatured, descriptionView }) => (
   <div className="ui four cards">
     {/* added Ternary operator of no games present in the cart */}
     {games.length === 0 ? (
@@ -16,7 +16,10 @@ const GamesList = ({ games, toggleFeatured }) => (
 
     ) : (
         // iterating the games object and giving each game as a prop to gameCard
-      games.map(game => <GameCard game={game} toggleFeatured={toggleFeatured} key={game._id} />)
+      games.map(game => <GameCard game={game} 
+        toggleFeatured={toggleFeatured}
+        descriptionView ={descriptionView} 
+         key={game._id} />)
     )}
   </div>
 );
