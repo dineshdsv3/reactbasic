@@ -10,15 +10,19 @@ class GameForm extends React.Component{
         console.log(this.state)
     }
 
-    handleNameChange = (e) => {
-        this.setState({name:e.target.value})
+    handleChange = (e) => {
+        this.setState({[e.target.name]:e.target.value})
     }
     render() {
         return (
            <form className ="ui form" onSubmit={this.handleSubmit}>
                <div className= "field">
                    <label>Name</label> 
-                   <input type="text" id="name" placeholder="Full game name" onChange={this.handleNameChange}/>
+                   <input type="text" id="name" placeholder="Game name" name="name" onChange={this.handleChange}/>
+               </div>
+               <div className= "field">
+                   <label>Description</label> 
+                   <textarea type="text" id="name" placeholder="Game description" name="description" onChange={this.handleChange}/>
                </div>
                <button className="ui button" type="submit">Submit</button>
            </form>
