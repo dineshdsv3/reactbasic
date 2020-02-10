@@ -47,11 +47,17 @@ class App extends React.Component {
     this.setState( { games: _orderBy(games,["featured","header"],["desc","asc"]) })
   }
   
+  toggleFeatured() {
+    alert("Toggled")
+  }
+
   render() {
 
     return(
       <div className="ui container">
-    <GamesList games={this.state.games} />
+    <GamesList 
+    games={this.state.games} 
+    toggleFeatured = {this.toggleFeatured}/>
   </div>
     
   )

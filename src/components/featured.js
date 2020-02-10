@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Featured = ({ featured }) => (
+
+const Featured = ({ featured, toggleFeatured }) => (
   <span>
     {featured ? (
-      <a className="ui right yellow corner label">
+      <a onClick={toggleFeatured} className="ui right yellow corner label">
         <i className="star icon"></i>
       </a>
     ) : (
-      <a className="ui right corner label">
+      <a onClick={toggleFeatured} className="ui right corner label">
         <i className="empty star icon"></i>
       </a>
     )}
