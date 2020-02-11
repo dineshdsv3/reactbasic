@@ -1,11 +1,16 @@
 import React from "react";
 
 const tags = [
-{_id:1,name: "mobile"},
-{_id:2,name: "PC"},
-{_id:3, name: "action"}
+  { _id: 1, name: "Mobile" },
+  { _id: 2, name: "PC" },
+  { _id: 3, name: "Action" }
+];
 
-]
+const genres = [
+  { _id: 1, name: "American" },
+  { _id: 2, name: "Euro" },
+  { _id: 3, name: "Russian" }
+];
 
 class GameForm extends React.Component {
   state = {
@@ -15,7 +20,9 @@ class GameForm extends React.Component {
     duration: 0,
     players: "",
     featured: true,
-    tags: []
+    tags: [],
+    genre: 1,
+    publisher: 0
   };
 
   handleSubmit = e => {
@@ -24,10 +31,11 @@ class GameForm extends React.Component {
   };
 
   handleChange = e => {
-    this.setState({
-      [e.target.name]:
-        e.target.type === "number" ? parseInt(e.target.value) : e.target.value
-    });
+    this.setState({ [e.target.name]: e.target.value});
+  };
+
+  handleNumberChange = e => {
+    this.setState({ [e.target.name]: parseInt(e.target.value) });
   };
 
   handleCheckChange = e => {
@@ -35,9 +43,12 @@ class GameForm extends React.Component {
   };
   toggleTag = tag => {
     this.state.tags.includes(tag._id)
-    ? this.setState({tags: this.state.tags.filter(id => id !== tag._id)})
-    : this.setState({tags: [...this.state.tags, tag._id]})
-  }
+      ? this.setState({ tags: this.state.tags.filter(id => id !== tag._id) })
+      : this.setState({ tags: [...this.state.tags, tag._id] });
+  };
+  handleGenreChange = genre => {
+    this.setState({ genre: genre._id });
+  };
 
   render() {
     return (
@@ -70,7 +81,7 @@ class GameForm extends React.Component {
               id="price"
               placeholder="Price"
               name="price"
-              onChange={this.handleChange}
+              onChange={this.handleNumberChange}
             />
           </div>
           <div className="field">
@@ -80,7 +91,7 @@ class GameForm extends React.Component {
               id="duration"
               placeholder="Duration"
               name="duration"
-              onChange={this.handleChange}
+              onChange={this.handleNumberChange}
             />
           </div>
           <div className="field">
@@ -105,16 +116,47 @@ class GameForm extends React.Component {
         </div>
         <div className="field">
           <label>Tags</label>
-        {tags.map(tag => {
-          <div className="inline field">
-            <input
-            name={tag.name}
-            type="checkbox"
-            checked ={this.state.tag.includes(tag._id)}
-            onChange ={() => this.toggleTag(tag)} />
-          <label htmlFor={`tag-${tag._id}`}>{tag.name}</label>
-          </div>
-        })}
+          {tags.map(tag => (
+            <div key={tag._id} className="inline field">
+              <input
+                name={tag.name}
+                type="checkbox"
+                checked={this.state.tags.includes(tag._id)}
+                onChange={() => this.toggleTag(tag)}
+              />
+              <label htmlFor={`tag-${tag._id}`}>{tag.name}</label>
+            </div>
+          ))}
+        </div>
+
+        <div className="field">
+          <label>Genres</label>
+          {genres.map(genres => (
+            <div key={genres._id} className="inline field">
+              <input
+                id={genres._name}
+                type="radio"
+                checked={this.state.genre === genres._id}
+                onChange={() => this.handleGenreChange(genres)}
+              />
+              <label htmlFor={genres.name}>{genres.name}</label>
+            </div>
+          ))}
+        </div>
+        <div className="field">
+          <label>Publisher</label>
+          <select
+            name="publisher"
+            value={this.state.publisher}
+            onChange={this.handleNumberChange}
+          >
+            <option value="0">Select a publisher</option>
+            {this.props.publisher.map(publisher => (
+              <option key={publisher._id} value={publisher._id}>
+                {publisher.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button className="ui button" type="submit">
           Submit

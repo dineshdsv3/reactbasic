@@ -4,11 +4,17 @@ import PropTypes from "prop-types";
 import _orderBy from "lodash/orderBy";
 import GameForm from "./GameForm";
 
+
+const publishers = [
+  {_id:1, name:"XPP"},
+  {_id:2, name: "In Design"}
+]
 // const games = undefined;
 const games = [
   {
     _id: 1,
     featured: false,
+    publisher: 1,
     price: 32.99,
     description: "Age of Empires is a series of historical real-time strategy video games, originally developed by Ensemble Studios and published by Xbox Game Studios.",
     descView: false,
@@ -20,6 +26,7 @@ const games = [
   {
     _id: 2,
     featured: false,
+    publisher: 2,
     price: 10.99,
     description: "Battlegrounds is a player versus player shooter game in which up to one hundred players fight in a battle royale, a type of large-scale last man standing deathmatch where players fight to remain the last alive. Players can choose to enter the match solo, duo, or with a small team of up to four people",
     descView: false,
@@ -31,6 +38,7 @@ const games = [
   {
     _id: 3,
     featured: true,
+    publisher: 1,
     price: 11.99,
     description: "Need for Speed (NFS) is a racing video game franchise published by Electronic Arts and currently developed by Ghost Games. The series centers around illicit street racing and in general tasks players to complete various types of races while evading the local law enforcement in police pursuits.",
     descView: false,
@@ -93,7 +101,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <GameForm />
+        <GameForm  publisher={publishers}/>
         <br />
         <GamesList
           games={this.state.games}
