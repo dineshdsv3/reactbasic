@@ -1,5 +1,6 @@
 import React from "react";
-import ReactImageFallBack from 'react-image-fallback'
+import ReactImageFallBack from "react-image-fallback";
+import PropTypes from 'prop-types';
 
 // const tags = [
 //   { _id: 1, name: "Mobile" },
@@ -79,23 +80,24 @@ class GameForm extends React.Component {
             </div>
           </div>
           <div className="four wide column">
-           <ReactImageFallBack 
-           src={this.state.thumbnail}
-           fallbackImage= "http://via.placeholder.com/250x250"
-           alt="Thumbnail"
-           className="ui image"/>
+            <ReactImageFallBack
+              src={this.state.thumbnail}
+              fallbackImage="http://via.placeholder.com/250x250"
+              alt="Thumbnail"
+              className="ui image"
+            />
           </div>
         </div>
         <div className="field">
-              <label>Thumbnail</label>
-              <input
-                type="text"
-                id="thumbnail"
-                placeholder="Game Image"
-                name="thumbnail"
-                onChange={this.handleChange}
-              />
-            </div>
+          <label>Thumbnail</label>
+          <input
+            type="text"
+            id="thumbnail"
+            placeholder="Game Image"
+            name="thumbnail"
+            onChange={this.handleChange}
+          />
+        </div>
         <div className="three fields">
           <div className="field">
             <label>Price</label>
@@ -181,12 +183,20 @@ class GameForm extends React.Component {
             ))}
           </select>
         </div> */}
-        <button className="ui button" type="submit">
-          Submit
-        </button>
+        <div className="ui fluid buttons">
+          <button className="ui primary button" type="submit">
+            Create
+          </button>
+          <div className="or"> </div>
+          <a className="ui button" onClick={this.props.cancel}>Cancel</a>
+        </div>
       </form>
     );
   }
+}
+
+GameForm.propTypes = {
+  cancel: PropTypes.func.isRequired
 }
 
 export default GameForm;
