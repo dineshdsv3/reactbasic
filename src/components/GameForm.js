@@ -1,5 +1,12 @@
 import React from "react";
 
+const tags = [
+{_id:1,name: "mobile"},
+{_id:2,name: "PC"},
+{_id:3, name: "action"}
+
+]
+
 class GameForm extends React.Component {
   state = {
     name: "",
@@ -7,7 +14,8 @@ class GameForm extends React.Component {
     price: 0,
     duration: 0,
     players: "",
-    featured: true
+    featured: true,
+    tags: []
   };
 
   handleSubmit = e => {
@@ -25,6 +33,12 @@ class GameForm extends React.Component {
   handleCheckChange = e => {
     this.setState({ [e.target.name]: e.target.checked });
   };
+  toggleTag = tag => {
+    this.state.tags.includes(tag._id)
+    ? this.setState({tags: this.state.tags.filter(id => id !== tag._id)})
+    : this.setState({tags: [...this.state.tags, tag._id]})
+  }
+
   render() {
     return (
       <form className="ui form" onSubmit={this.handleSubmit}>
@@ -88,6 +102,19 @@ class GameForm extends React.Component {
             onChange={this.handleCheckChange}
           />
           <label>featured?</label>
+        </div>
+        <div className="field">
+          <label>Tags</label>
+        {tags.map(tag => {
+          <div className="inline field">
+            <input
+            name={tag.name}
+            type="checkbox"
+            checked ={this.state.tag.includes(tag._id)}
+            onChange ={() => this.toggleTag(tag)} />
+          <label htmlFor={`tag-${tag._id}`}>{tag.name}</label>
+          </div>
+        })}
         </div>
         <button className="ui button" type="submit">
           Submit
