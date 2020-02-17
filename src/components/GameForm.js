@@ -20,7 +20,7 @@ class GameForm extends React.Component {
     data:{
 
       
-      name: "",
+      name :"",
       description: "",
       price: 0,
       duration: 0,
@@ -37,9 +37,26 @@ class GameForm extends React.Component {
     }
   };
 
+  validate(data) {
+    const errors = {}
+
+    if(!data.name) errors.name = "This field can't be left blank"
+    if(!data.thumbnail) errors.thumbnail = "This field can't be left blank"
+    if(!data.players) errors.players = "This field can't be left blank"
+    if(data.price <=0 ) errors.price = "Enter an valid price"
+    if(data.duration <=0) errors.duration = "Enter an valid duration"
+
+    return errors;
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.data);
+    const errors = this.validate(this.state.data);
+    this.setState({errors:errors})
+
+    if(Object.keys(errors).length == 0) {
+      console.log(this.state.data);
+    }
   };
 
   handleChange = e => {
