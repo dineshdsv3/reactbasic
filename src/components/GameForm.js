@@ -1,6 +1,7 @@
 import React from "react";
 import ReactImageFallBack from "react-image-fallback";
 import PropTypes from 'prop-types';
+import FormInlineMessage from "./FormInlineMessage";
 
 // const tags = [
 //   { _id: 1, name: "Mobile" },
@@ -30,7 +31,10 @@ class GameForm extends React.Component {
     // tags: [],
     // genre: 1,
     // publisher: 0
-    errors: {}
+    errors: {
+      // name: "This field can't be left blank",
+      // duration: "This field can't be left blank"
+    }
   };
 
   handleSubmit = e => {
@@ -59,11 +63,12 @@ class GameForm extends React.Component {
   // };
 
   render() {
+    const {data, errors} = this.state;
     return (
       <form className="ui form" onSubmit={this.handleSubmit}>
         <div className="ui grid">
           <div className="twelve wide column">
-            <div className="field">
+            <div className={errors.name ? "field error": "field"}>
               <label>Name</label>
               <input
                 type="text"
@@ -72,6 +77,7 @@ class GameForm extends React.Component {
                 name="name"
                 onChange={this.handleChange}
               />
+              <FormInlineMessage content={errors.name} type= "error"/>
             </div>
             <div className="field">
               <label>Description</label>
@@ -93,7 +99,7 @@ class GameForm extends React.Component {
             />
           </div>
         </div>
-        <div className="field">
+        <div className={errors.thumbnail ? "field error": "field"}>
           <label>Thumbnail</label>
           <input
             type="text"
@@ -102,9 +108,10 @@ class GameForm extends React.Component {
             name="thumbnail"
             onChange={this.handleChange}
           />
+           <FormInlineMessage content={errors.thumbnail} type= "error"/>
         </div>
         <div className="three fields">
-          <div className="field">
+        <div className={errors.price ? "field error": "field"}>
             <label>Price</label>
             <input
               type="number"
@@ -113,8 +120,9 @@ class GameForm extends React.Component {
               name="price"
               onChange={this.handleNumberChange}
             />
+             <FormInlineMessage content={errors.price} type= "error"/>
           </div>
-          <div className="field">
+          <div className={errors.duration ? "field error": "field"}>
             <label>Duration</label>
             <input
               type="number"
@@ -123,8 +131,9 @@ class GameForm extends React.Component {
               name="duration"
               onChange={this.handleNumberChange}
             />
+             <FormInlineMessage content={errors.duration} type= "error"/>
           </div>
-          <div className="field">
+          <div className={errors.players ? "field error": "field"}>
             <label>Players</label>
             <input
               type="text"
@@ -133,6 +142,7 @@ class GameForm extends React.Component {
               name="players"
               onChange={this.handleChange}
             />
+             <FormInlineMessage content={errors.players} type= "error"/>
           </div>
         </div>
         <div className="inline field">
