@@ -16,33 +16,38 @@ import PropTypes from 'prop-types';
 
 class GameForm extends React.Component {
   state = {
-    name: "",
-    description: "",
-    price: 0,
-    duration: 0,
-    players: "",
-    featured: true,
-    thumbnail: ""
+    data:{
+
+      
+      name: "",
+      description: "",
+      price: 0,
+      duration: 0,
+      players: "",
+      featured: true,
+      thumbnail: ""
+    },
     // tags: [],
     // genre: 1,
     // publisher: 0
+    errors: {}
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    console.log(this.state.data);
   };
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ data : {...this.state.data ,[e.target.name]: e.target.value }});
   };
 
   handleNumberChange = e => {
-    this.setState({ [e.target.name]: parseInt(e.target.value) });
+    this.setState({ data: {...this.state.data, [e.target.name]: parseInt(e.target.value) }});
   };
 
   handleCheckChange = e => {
-    this.setState({ [e.target.name]: e.target.checked });
+    this.setState({ data: {...this.state.data, [e.target.name]: e.target.checked} });
   };
   // toggleTag = tag => {
   //   this.state.tags.includes(tag._id)
@@ -81,7 +86,7 @@ class GameForm extends React.Component {
           </div>
           <div className="four wide column">
             <ReactImageFallBack
-              src={this.state.thumbnail}
+              src={this.state.data.thumbnail}
               fallbackImage="http://via.placeholder.com/250x250"
               alt="Thumbnail"
               className="ui image"
@@ -133,7 +138,7 @@ class GameForm extends React.Component {
         <div className="inline field">
           <input
             type="checkbox"
-            checked={this.state.featured}
+            checked={this.state.data.featured}
             name="featured"
             onChange={this.handleCheckChange}
           />

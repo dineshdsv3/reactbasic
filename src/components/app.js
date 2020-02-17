@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import _orderBy from "lodash/orderBy";
 import GameForm from "./GameForm";
 import TopNavigation from "./TopNavigation";
+import axios from 'axios';
 
 // const publishers = [
 //   {_id:1, name:"XPP"},
@@ -69,6 +70,8 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+
+    // axios.get('/api/unsafegames')
     this.setState({
       games: this.orderBy(games)
     });
@@ -122,7 +125,7 @@ class App extends React.Component {
           /></div>
         </div>
 
-        {/*  <GameForm  publisher={publishers}/> */}
+         {/* <GameForm  publisher={publishers}/> */}
         <br />
       </div>
     );
