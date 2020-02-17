@@ -31,10 +31,7 @@ class GameForm extends React.Component {
     // tags: [],
     // genre: 1,
     // publisher: 0
-    errors: {
-      // name: "This field can't be left blank",
-      // duration: "This field can't be left blank"
-    }
+    errors: {}
   };
 
   validate(data) {
