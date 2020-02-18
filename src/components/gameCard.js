@@ -4,7 +4,7 @@ import Price from "./price";
 import Featured from "./featured";
 import DescriptionView from "./DescriptionView";
 
-const GameCard = ({ game, toggleFeatured, descriptionView }) => (
+const GameCard = ({ game, toggleFeatured, descriptionView, editGame }) => (
   <div className="ui card">
     <Price gamePrice={game} />
     <Featured
@@ -18,7 +18,7 @@ const GameCard = ({ game, toggleFeatured, descriptionView }) => (
       </div>
     ) : (
       <div className="card">
-      <p>{game.description} </p>
+        <p>{game.description} </p>
       </div>
     )}
 
@@ -27,10 +27,21 @@ const GameCard = ({ game, toggleFeatured, descriptionView }) => (
       <div className="meta">
         <i className="icon users" /> {game.players} Players
         <i className="icon wait" /> {game.duration} Min
-        <DescriptionView 
-        descriptionView={descriptionView}
-        description = {game.description}
-        descView = {game.descView} />
+        <DescriptionView
+          descriptionView={descriptionView}
+          description={game.description}
+          descView={game.descView}
+        />
+      </div>
+    </div>
+    <div className="extra content">
+      <div className="ui two buttons">
+        <a className="ui green basic button" onClick={() => editGame(game)}>
+          <i className="ui icon edit" />
+        </a>
+        <a className="ui red basic button">
+          <i className="ui icon trash" />
+        </a>
       </div>
     </div>
   </div>

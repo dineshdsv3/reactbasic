@@ -1,6 +1,6 @@
 import React from "react";
 import ReactImageFallBack from "react-image-fallback";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import FormInlineMessage from "./FormInlineMessage";
 
 // const tags = [
@@ -14,34 +14,56 @@ import FormInlineMessage from "./FormInlineMessage";
 //   { _id: 2, name: "Euro" },
 //   { _id: 3, name: "Russian" }
 // ];
+const initialData = {
+  id: null,
+  descView: false,
+  duration: "",
+  header: "",
+  description: "",
+  price: 0,
+  players: "",
+  featured: true,
+  thumbnail: ""
+  // tags: [],
+  // genre: 1,
+  // publisher: 0
+};
 
 class GameForm extends React.Component {
   state = {
-    data:{
+    data: initialData,
 
-      
-      header :"",
-      description: "",
-      price: 0,
-      duration: 0,
-      players: "",
-      featured: true,
-      thumbnail: ""
-    },
-    // tags: [],
-    // genre: 1,
-    // publisher: 0
     errors: {}
   };
 
-  validate(data) {
-    const errors = {}
+  componentWillMount() {
+    if (this.props.game._id) {
+      console.log(this.props.game);
+      this.setState({ data: this.props.game });
+      console.log(this.state.data);
+    }
+    
+  }
 
-    if(!data.header) errors.header = "This field can't be left blank"
-    if(!data.thumbnail) errors.thumbnail = "This field can't be left blank"
-    if(!data.players) errors.players = "This field can't be left blank"
-    if(data.price <=0 ) errors.price = "Enter an valid price"
-    if(data.duration <=0) errors.duration = "Enter an valid duration"
+  // componentWillMount(nextProps) {
+  //   if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
+  //     console.log(nextProps.game);
+  //     this.setState({ data: nextProps.game });
+  //     console.log(this.state.data)
+  //   }
+  //   if(!nextProps.game.id){
+  //     this.setState({data:initialData})
+  //   }
+  // }
+
+  validate(data) {
+    const errors = {};
+
+    if (!data.header) errors.header = "This field can't be left blank";
+    if (!data.thumbnail) errors.thumbnail = "This field can't be left blank";
+    if (!data.players) errors.players = "This field can't be left blank";
+    if (data.price <= 0) errors.price = "Enter an valid price";
+    if (data.duration <= 0) errors.duration = "Enter an valid duration";
 
     return errors;
   }
@@ -49,23 +71,29 @@ class GameForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const errors = this.validate(this.state.data);
-    this.setState({errors:errors})
+    this.setState({ errors: errors });
 
-    if(Object.keys(errors).length == 0) {
+    if (Object.keys(errors).length === 0) {
       this.props.submit(this.state.data);
     }
   };
 
   handleChange = e => {
-    this.setState({ data : {...this.state.data ,[e.target.name]: e.target.value }});
+    this.setState({
+      data: { ...this.state.data, [e.target.name]: e.target.value }
+    });
   };
 
   handleNumberChange = e => {
-    this.setState({ data: {...this.state.data, [e.target.name]: parseInt(e.target.value) }});
+    this.setState({
+      data: { ...this.state.data, [e.target.name]: parseInt(e.target.value) }
+    });
   };
 
   handleCheckChange = e => {
-    this.setState({ data: {...this.state.data, [e.target.name]: e.target.checked} });
+    this.setState({
+      data: { ...this.state.data, [e.target.name]: e.target.checked }
+    });
   };
   // toggleTag = tag => {
   //   this.state.tags.includes(tag._id)
@@ -77,12 +105,12 @@ class GameForm extends React.Component {
   // };
 
   render() {
-    const {data, errors} = this.state;
+    const { data, errors } = this.state;
     return (
       <form className="ui form" onSubmit={this.handleSubmit}>
         <div className="ui grid">
           <div className="twelve wide column">
-            <div className={errors.header ? "field error": "field"}>
+            <div className={errors.header ? "field error" : "field"}>
               <label>Name</label>
               <input
                 type="text"
@@ -91,7 +119,7 @@ class GameForm extends React.Component {
                 name="header"
                 onChange={this.handleChange}
               />
-              <FormInlineMessage content={errors.header} type= "error"/>
+              <FormInlineMessage content={errors.header} type="error" />
             </div>
             <div className="field">
               <label>Description</label>
@@ -113,7 +141,7 @@ class GameForm extends React.Component {
             />
           </div>
         </div>
-        <div className={errors.thumbnail ? "field error": "field"}>
+        <div className={errors.thumbnail ? "field error" : "field"}>
           <label>Thumbnail</label>
           <input
             type="text"
@@ -122,10 +150,10 @@ class GameForm extends React.Component {
             name="thumbnail"
             onChange={this.handleChange}
           />
-           <FormInlineMessage content={errors.thumbnail} type= "error"/>
+          <FormInlineMessage content={errors.thumbnail} type="error" />
         </div>
         <div className="three fields">
-        <div className={errors.price ? "field error": "field"}>
+          <div className={errors.price ? "field error" : "field"}>
             <label>Price</label>
             <input
               type="number"
@@ -134,9 +162,9 @@ class GameForm extends React.Component {
               name="price"
               onChange={this.handleNumberChange}
             />
-             <FormInlineMessage content={errors.price} type= "error"/>
+            <FormInlineMessage content={errors.price} type="error" />
           </div>
-          <div className={errors.duration ? "field error": "field"}>
+          <div className={errors.duration ? "field error" : "field"}>
             <label>Duration</label>
             <input
               type="number"
@@ -145,9 +173,9 @@ class GameForm extends React.Component {
               name="duration"
               onChange={this.handleNumberChange}
             />
-             <FormInlineMessage content={errors.duration} type= "error"/>
+            <FormInlineMessage content={errors.duration} type="error" />
           </div>
-          <div className={errors.players ? "field error": "field"}>
+          <div className={errors.players ? "field error" : "field"}>
             <label>Players</label>
             <input
               type="text"
@@ -156,7 +184,7 @@ class GameForm extends React.Component {
               name="players"
               onChange={this.handleChange}
             />
-             <FormInlineMessage content={errors.players} type= "error"/>
+            <FormInlineMessage content={errors.players} type="error" />
           </div>
         </div>
         <div className="inline field">
@@ -217,7 +245,9 @@ class GameForm extends React.Component {
             Create
           </button>
           <div className="or"> </div>
-          <a className="ui button" onClick={this.props.cancel}>Cancel</a>
+          <a className="ui button" onClick={this.props.cancel}>
+            Cancel
+          </a>
         </div>
       </form>
     );
@@ -226,6 +256,6 @@ class GameForm extends React.Component {
 
 GameForm.propTypes = {
   cancel: PropTypes.func.isRequired
-}
+};
 
 export default GameForm;
