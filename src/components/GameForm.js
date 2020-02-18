@@ -20,7 +20,7 @@ class GameForm extends React.Component {
     data:{
 
       
-      name :"",
+      header :"",
       description: "",
       price: 0,
       duration: 0,
@@ -37,7 +37,7 @@ class GameForm extends React.Component {
   validate(data) {
     const errors = {}
 
-    if(!data.name) errors.name = "This field can't be left blank"
+    if(!data.header) errors.header = "This field can't be left blank"
     if(!data.thumbnail) errors.thumbnail = "This field can't be left blank"
     if(!data.players) errors.players = "This field can't be left blank"
     if(data.price <=0 ) errors.price = "Enter an valid price"
@@ -52,7 +52,7 @@ class GameForm extends React.Component {
     this.setState({errors:errors})
 
     if(Object.keys(errors).length == 0) {
-      console.log(this.state.data);
+      this.props.submit(this.state.data);
     }
   };
 
@@ -82,16 +82,16 @@ class GameForm extends React.Component {
       <form className="ui form" onSubmit={this.handleSubmit}>
         <div className="ui grid">
           <div className="twelve wide column">
-            <div className={errors.name ? "field error": "field"}>
+            <div className={errors.header ? "field error": "field"}>
               <label>Name</label>
               <input
                 type="text"
                 id="name"
                 placeholder="Game name"
-                name="name"
+                name="header"
                 onChange={this.handleChange}
               />
-              <FormInlineMessage content={errors.name} type= "error"/>
+              <FormInlineMessage content={errors.header} type= "error"/>
             </div>
             <div className="field">
               <label>Description</label>

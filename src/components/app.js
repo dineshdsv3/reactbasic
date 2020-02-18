@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import _orderBy from "lodash/orderBy";
 import GameForm from "./GameForm";
 import TopNavigation from "./TopNavigation";
-import axios from 'axios';
+import axios from "axios";
 
 // const publishers = [
 //   {_id:1, name:"XPP"},
@@ -70,7 +70,6 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-
     // axios.get('/api/unsafegames')
     this.setState({
       games: this.orderBy(games)
@@ -107,25 +106,38 @@ class App extends React.Component {
   showGameForm = () => this.setState({ showGameForm: true });
   hideGameForm = () => this.setState({ showGameForm: false });
 
+  addGame = game =>
+    this.setState({
+      games: this.orderBy([
+        ...this.state.games,
+        { ...game, _id: this.state.games.length + 1 }
+      ]),
+
+      showGameForm: false
+    });
+
   render() {
-    const numberOfColumns = this.state.showGameForm ? "eleven" : "sixteen"
+    const numberOfColumns = this.state.showGameForm ? "eleven" : "sixteen";
     return (
       <div className="ui container">
         <TopNavigation showGameForm={this.showGameForm} />
         <div className="ui stackable grid">
-            {this.state.showGameForm && (
+          {this.state.showGameForm && (
             <div className="five wide column">
-            <GameForm cancel={this.hideGameForm} /></div>)}
-            
+              <GameForm cancel={this.hideGameForm} submit={this.addGame} />
+            </div>
+          )}
+
           <div className={`${numberOfColumns} wide column`}>
-          <GamesList
-            games={this.state.games}
-            toggleFeatured={this.toggleFeatured}
-            descriptionView={this.descriptionView}
-          /></div>
+            <GamesList
+              games={this.state.games}
+              toggleFeatured={this.toggleFeatured}
+              descriptionView={this.descriptionView}
+            />
+          </div>
         </div>
 
-         {/* <GameForm  publisher={publishers}/> */}
+        {/* <GameForm  publisher={publishers}/> */}
         <br />
       </div>
     );
