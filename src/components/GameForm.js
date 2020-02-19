@@ -14,7 +14,7 @@ import FormInlineMessage from "./FormInlineMessage";
 //   { _id: 2, name: "Euro" },
 //   { _id: 3, name: "Russian" }
 // ];
-const initialData = {
+let initialData = {
   id: null,
   descView: false,
   duration: "",
@@ -36,25 +36,25 @@ class GameForm extends React.Component {
     errors: {}
   };
 
-  componentWillMount() {
-    if (this.props.game._id) {
-      console.log(this.props.game);
-      this.setState({ data: this.props.game });
-      console.log(this.state.data);
-    }
+  // componentDidMount() {
+  //   if (this.props.game._id) {
+  //     console.log(this.props.game);
+  //     this.setState({ data: this.props.game });
+  //     console.log(this.state.data);
+  //   }
     
-  }
-
-  // componentWillMount(nextProps) {
-  //   if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
-  //     console.log(nextProps.game);
-  //     this.setState({ data: nextProps.game });
-  //     console.log(this.state.data)
-  //   }
-  //   if(!nextProps.game.id){
-  //     this.setState({data:initialData})
-  //   }
   // }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
+      console.log(nextProps.game);
+      this.setState({ data: nextProps.game });
+      console.log(this.state.data)
+    }
+    if(!nextProps.game._id){
+      this.setState({data:initialData})
+    }
+  }
 
   validate(data) {
     const errors = {};
@@ -71,7 +71,7 @@ class GameForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const errors = this.validate(this.state.data);
-    this.setState({ errors: errors });
+    this.setState({ errors});
 
     if (Object.keys(errors).length === 0) {
       this.props.submit(this.state.data);
